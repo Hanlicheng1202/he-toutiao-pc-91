@@ -24,6 +24,7 @@
 <script>
 // 引入store
 import store from '@/store'
+
 export default {
 
   mounted () {
@@ -63,30 +64,38 @@ export default {
   methods: {
     login () {
       // 先整体表单校验
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate(async (valid) => {
         // valid 判断是否校验成功
         if (valid) {
           // 进行登录
           // console.log(this.loginForm)
           // 存储用户信息
 
-          this.$http({
-            method: 'post',
-            url: 'http://ttapi.research.itcast.cn/mp/v1_0/authorizations',
-            data: this.loginForm
-          })
-            .then(res => {
-              console.log(res)
+          // this.$http({
+          //   method: 'post',
+          //   url: '/authorizations',
+          //   data: this.loginForm
+          // })
+          //   .then(res => {
+          //     console.log(res)
 
-              store.set(res.data.data)
-              this.$router.push('/home')
-            }).catch(e => {
-            // 登录失败
-              this.$message.error('手机号或验证码错误')
-            })
+          //     store.set(res.data.data)
+          //     this.$router.push('/')
+          //   }).catch(e => {
+          //   // 登录失败
+          //     this.$message.error('手机号或验证码错误')
+          //   })
+          try {
+            const res = await this.$http.post('/authorizations', this.loginForm)
+            store.set(res.data.data)
+            this.$router.push('/')
+          } catch (e) {
+            this.$message.error('手机号或验证码错误')
+          }
         }
       })
     }
+
   }
 
 }
