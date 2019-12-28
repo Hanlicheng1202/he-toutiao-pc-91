@@ -28,7 +28,7 @@ import store from '@/store'
 export default {
 
   mounted () {
-    console.log(this.$refs)
+    // console.log(this.$refs)
   },
 
   data () {
@@ -42,6 +42,7 @@ export default {
       callback()
     }
     return {
+
       loginForm: {
         mobile: '13911111111',
         code: '246810'

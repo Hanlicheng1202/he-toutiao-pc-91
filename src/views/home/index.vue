@@ -5,7 +5,7 @@
         <!-- <div class="logo" :class="{minLogo: !iszhankai}"></div> -->
         <!-- 导航菜单 -->
         <el-menu
-      default-active="/"
+      :default-active="$route.path"
       background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -53,8 +53,8 @@
         <!-- 下拉菜单 -->
         <el-dropdown class="my-dropdown">
           <span class="el-dropdown-link">
-            <img src="../../assets/avatar.jpg" alt class="user-icon" />
-            <span class="user-name">用户名称</span>
+            <img :src="photo" alt class="user-icon" />
+            <span class="user-name">{{name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -77,15 +77,22 @@ export default {
   data () {
     return {
       iszhankai: true,
-      dialogVisible: false
+      dialogVisible: false,
+      name: '',
+      photo: ''
     }
   },
   created () {
+    // console.log(store.get())
+
+    this.name = store.get().name
+    this.photo = store.get().photo
     this.$http({
       url: 'user/profile',
       method: 'get'
     })
   },
+
   methods: {
     // 导航栏折叠
 
@@ -167,11 +174,6 @@ export default {
       }
     }
   }
-  .el-main {
-    // background-color: #e9eef3;
-    color: #333;
-    text-align: center;
-    line-height: 160px;
-  }
+
 }
 </style>
