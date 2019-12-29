@@ -164,7 +164,7 @@ export default {
     // },
     // 编辑
     edit (id) {
-      this.$router.push(`/public?id=${id}`)
+      this.$router.push(`/publish?id=${id}`)
     },
     // 删除
     async del (articleId) {
