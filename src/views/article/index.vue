@@ -19,7 +19,7 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="频道：">
-          <el-select v-model="filterParams.channel_id" placeholder="请选择"  @change="changeChannel"   clearable>
+          <!-- <el-select v-model="filterParams.channel_id" placeholder="请选择"  @change="changeChannel"   clearable>
             <el-option
               v-for="item in channelDatas"
               :key="item.id"
@@ -27,7 +27,9 @@
               :value="item.id"
 
             ></el-option>
-          </el-select>
+          </el-select>-->
+           <!-- 自己定义的组件 -->
+          <channel :value="filterParams.channel_id" @input="filterParams.channel_id=$event"> </channel>
         </el-form-item>
         <el-form-item label="日期：">
           <el-date-picker
@@ -72,9 +74,9 @@
         </el-table-column>
         <el-table-column label="发布时间" prop="pubdate"></el-table-column>
         <el-table-column label="操作">
-            <template>
-            <el-button  type="primary" icon="el-icon-edit" circle></el-button>
-            <el-button   type="danger" icon="el-icon-delete" circle></el-button>
+            <template slot-scope="scope">
+            <el-button  type="primary" icon="el-icon-edit" circle @click="edit(scope.row.id)"></el-button>
+            <el-button   type="danger" icon="el-icon-delete" circle @click="del(scope.row.id)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -84,7 +86,7 @@
         background
         layout="prev, pager, next"
         :total="total"
-        :current-page='filterParams.currentPage'
+        :current-page='filterParams.page'
         :page-size='filterParams.per_page'
         @current-change="fenye"
       ></el-pagination>
@@ -103,15 +105,12 @@ export default {
         channel_id: null,
         begin_pubdate: null,
         end_pubdate: null,
-        currentPage: 1,
+        page: 1,
         per_page: 10
       },
       // 文章列表
       articles: [],
-      // 频道选项
-      channelDatas: [
 
-      ],
       // 日期选择后的数组[起始日期,结束日期]
       dateArr: [],
       // 总条数
@@ -120,15 +119,15 @@ export default {
     }
   },
   created () {
-    this.getChannelData()
+    // this.getChannelData()
     this.getArticleList()
   },
   methods: {
     //   获取频道选项
-    async    getChannelData () {
-      const { data: { data } } = await this.$http.get('channels')
-      this.channelDatas = data.channels
-    },
+    // async    getChannelData () {
+    //   const { data: { data } } = await this.$http.get('channels')
+    //   this.channelDatas = data.channels
+    // },
     async getArticleList () {
       const { data: { data } } = await this.$http.get('articles', { params: this.filterParams })
       this.articles = data.results
@@ -137,13 +136,13 @@ export default {
       // 测试把axios默认的转json对象的方式改成 json-bigint 的方式
       // console.log(this.articles[0].id.toString())
     },
-    fenye (currentpage) {
-      this.filterParams.currentPage = currentpage
+    fenye (newPage) {
+      this.filterParams.page = newPage
       this.getArticleList()
     },
     search () {
       // 每次搜索的时候 页码变为1
-      this.filterParams.currentPage = 1
+      this.filterParams.page = 1
       // 加载数据
       this.getArticleList()
     },
@@ -158,9 +157,25 @@ export default {
       }
     },
     // 频道选择处理函数
-    changeChannel () {
-      if (this.filterParams.channel_id === '') {
-        this.filterParams.channel_id = null
+    // changeChannel () {
+    //   if (this.filterParams.channel_id === '') {
+    //     this.filterParams.channel_id = null
+    //   }
+    // },
+    // 编辑
+    edit (id) {
+      this.$router.push(`/public?id=${id}`)
+    },
+    // 删除
+    async del (articleId) {
+      try {
+        await this.$http.delete(`articles/${articleId}`)
+        this.$message.success('删除成功')
+        //  删除成功后重新获取
+        this.getArticleList()
+      } catch (e) {
+        console.log(e)
+        this.$message.error('删除失败')
       }
     }
   }
