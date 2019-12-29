@@ -6,6 +6,7 @@ import router from '@/router'
 // import axios from 'axios'
 import axios from '@/api'
 import plugin from '@/plugin'
+import '@/styles/index.less'
 Vue.use(plugin)
 
 Vue.prototype.$http = axios
