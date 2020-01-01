@@ -28,7 +28,7 @@
 
             ></el-option>
           </el-select>-->
-           <!-- 自己定义的组件 -->
+           <!-- 使用自己定义的组件 -->
           <channel :value="filterParams.channel_id" @input="filterParams.channel_id=$event"> </channel>
         </el-form-item>
         <el-form-item label="日期：">

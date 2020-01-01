@@ -7,6 +7,8 @@ import Welcome from '@/views/welcome'
 import NotFound from '@/views/notfound'
 import Setting from '@/views/setting'
 import Article from '@/views/article'
+
+import Publish from '@/views/publish'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -23,7 +25,9 @@ const router = new VueRouter({
         // 个人设置模块
         { path: '/setting', component: Setting },
         // 内容模块
-        { path: '/article', component: Article }
+        { path: '/article', component: Article },
+        // 文章模块
+        { path: '/publish', component: Publish }
       ]
     },
     // 404
