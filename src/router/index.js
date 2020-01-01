@@ -8,6 +8,7 @@ import NotFound from '@/views/notfound'
 import Setting from '@/views/setting'
 import Article from '@/views/article'
 import Image from '@/views/image'
+import Publish from '@/views/publish'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -26,7 +27,9 @@ const router = new VueRouter({
         // 内容模块
         { path: '/article', component: Article },
         // 素材管理
-        { path: '/image', component: Image }
+        { path: '/image', component: Image },
+        // 文章模块
+        { path: '/publish', component: Publish }
       ]
     },
     // 404
