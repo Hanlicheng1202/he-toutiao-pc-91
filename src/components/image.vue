@@ -63,6 +63,7 @@ import store from '@/store'
 import defaultImage from '../assets/default.png'
 export default {
   name: 'myimage',
+  // 接收父组件传过来的值
   props: ['value'],
   data () {
     return {
