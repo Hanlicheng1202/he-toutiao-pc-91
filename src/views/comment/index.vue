@@ -1,8 +1,8 @@
 <template>
-  <div class="container-setting">
+  <div class="container-pinglun">
     <el-card>
          <div slot="header">
-        <mianbao>个人设置</mianbao>
+        <mianbao>评论管理</mianbao>
       </div>
     </el-card>
   </div>

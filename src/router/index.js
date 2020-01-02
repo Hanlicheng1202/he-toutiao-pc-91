@@ -9,6 +9,8 @@ import Setting from '@/views/setting'
 import Article from '@/views/article'
 import Image from '@/views/image'
 import Publish from '@/views/publish'
+import Comment from '@/views/comment'
+import Fans from '@/views/fans'
 Vue.use(VueRouter)
 const router = new VueRouter({
   routes: [
@@ -29,7 +31,13 @@ const router = new VueRouter({
         // 素材管理
         { path: '/image', component: Image },
         // 文章模块
-        { path: '/publish', component: Publish }
+        { path: '/publish', component: Publish },
+        // 评论管理
+        { path: '/comment', component: Comment },
+        // 粉丝管理
+        { path: '/fans', component: Fans },
+        // 个人设置
+        { path: '/setting', component: Setting }
       ]
     },
     // 404
