@@ -73,6 +73,7 @@
 
 <script>
 import store from '@/store'
+import eventBus from '@/eventBus'
 export default {
   data () {
     return {
@@ -90,6 +91,13 @@ export default {
     this.$http({
       url: 'user/profile',
       method: 'get'
+    })
+    // 绑定事件 先绑定后触发 越早绑定越好
+    eventBus.$on('updateUserName', (name) => {
+      this.name = name
+    })
+    eventBus.$on('updateUserPhoto', (photo) => {
+      this.photo = photo
     })
   },
 
